@@ -4,4 +4,6 @@ package com.example.foodrecipes;
 public class Constants {
     // API key for our service.
     public static String API_KEY = "ff052adf694ad99ef41c918afd62543c";
+    // Base URL
+    public static String BASE_URL = "https://www.food2fork.com";
 }
