@@ -1,5 +1,7 @@
 package com.example.foodrecipes.Networking;
 
+import com.example.foodrecipes.Constants;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
