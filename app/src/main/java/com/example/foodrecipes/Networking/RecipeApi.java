@@ -19,9 +19,9 @@ public interface RecipeApi {
 
     // This request is for getting particular recipe and the difference is that it has api/get instead of
     // api/search and again imitate the url from Postman. In this case we have only two parameters for
-    // our request: rID and key.
+    // our request: rID and key. ALso the type is RecipeResponse.
     @GET("api/get")
-    Call<RecipeSearchResponse> getRecipe(@Query("key") String key, @Query("rId") String rId);
+    Call<RecipeResponse> getRecipe(@Query("key") String key, @Query("rId") String rId);
 
 
 }

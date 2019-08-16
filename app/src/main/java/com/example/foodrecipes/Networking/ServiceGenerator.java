@@ -9,10 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 // ti implement singleton pattern so we will have only one object at a time.
 public class ServiceGenerator {
 
-    // We are instantiating retrofit using builder and passing two parameters: api key
+    // We are instantiating retrofit using builder and passing two parameters: base url
     // and converter factory.
     public static Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                .baseUrl(Constants.API_KEY)
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
 
     // Then creating retrofit instance from retrofit builder.
