@@ -26,4 +26,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Variable for syncing Retrofit and Gson versions
+    def retrofitGsonVersion = "2.5.0"
+
+    // Retrofit Dependency
+    implementation "com.squareup.retrofit2:retrofit:$retrofitGsonVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitGsonVersion"
+
 }
