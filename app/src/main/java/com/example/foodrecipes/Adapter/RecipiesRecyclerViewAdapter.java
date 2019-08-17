@@ -21,8 +21,7 @@ public class RecipiesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     private List<Recipe> recipes;
     private OnRecipeClickListener onRecipeClickListener;
 
-    public RecipiesRecyclerViewAdapter(List<Recipe> recipes, OnRecipeClickListener onRecipeClickListener) {
-        this.recipes = recipes;
+    public RecipiesRecyclerViewAdapter(OnRecipeClickListener onRecipeClickListener) {
         this.onRecipeClickListener = onRecipeClickListener;
     }
 
@@ -44,13 +43,22 @@ public class RecipiesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         // For default if something goes wrong or slow connection
         RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_launcher_background);
         // Setting Images
-        Glide.with(holder.itemView.getContext()).setDefaultRequestOptions(requestOptions).load(recipes.get(position)).into(((RecipiesRecyclerViewViewHolder) holder).getImageView());
+        Glide.with(holder.itemView.getContext()).setDefaultRequestOptions(requestOptions).load(recipes.get(position).getImage_url()).into(((RecipiesRecyclerViewViewHolder) holder).getImageView());
 
     }
 
     @Override
     public int getItemCount() {
-        return recipes.size();
+        if (recipes == null) {
+            return 0;
+        } else {
+            return recipes.size();
+        }
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+        notifyDataSetChanged();
     }
 
 }

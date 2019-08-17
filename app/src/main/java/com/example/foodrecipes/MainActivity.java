@@ -2,11 +2,15 @@ package com.example.foodrecipes;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.foodrecipes.Adapter.RecipiesRecyclerViewAdapter;
+import com.example.foodrecipes.Listener.OnRecipeClickListener;
 import com.example.foodrecipes.Model.Recipe;
 import com.example.foodrecipes.Networking.RecipeApi;
 import com.example.foodrecipes.Networking.RecipeResponse;
@@ -21,9 +25,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnRecipeClickListener {
 
     private MainActivelyViewModel mainActivelyViewModel;
+    private RecyclerView recipiesRecyclerView;
+    private RecipiesRecyclerViewAdapter recipiesRecyclerViewAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,13 @@ public class MainActivity extends BaseActivity {
 
         mainActivelyViewModel = ViewModelProviders.of(this).get(MainActivelyViewModel.class);
         subscribeObservers();
+
+        recipiesRecyclerView = findViewById(R.id.recipies_recycler_view);
+        recipiesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recipiesRecyclerViewAdapter = new RecipiesRecyclerViewAdapter(this);
+        recipiesRecyclerView.setAdapter(recipiesRecyclerViewAdapter);
+
+        searchRecipes("chicken", 1);
     }
 
     // LiveData work with subscribing. This method will subscribe the observers.
@@ -41,8 +55,8 @@ public class MainActivity extends BaseActivity {
         mainActivelyViewModel.getRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
             public void onChanged(List<Recipe> recipes) {
-                for (Recipe recipe : recipes) {
-                    Log.d("onChanged", recipe.getTitle());
+                if (recipes != null) {
+                    recipiesRecyclerViewAdapter.setRecipes(recipes);
                 }
             }
         });
@@ -60,4 +74,13 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onRecipeItemClicked(int position) {
+
+    }
+
+    @Override
+    public void onCategoryClicked(String category) {
+
+    }
 }
