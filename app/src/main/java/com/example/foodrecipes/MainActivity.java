@@ -1,6 +1,7 @@
 package com.example.foodrecipes;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import com.example.foodrecipes.Networking.RecipeApi;
 import com.example.foodrecipes.Networking.RecipeResponse;
 import com.example.foodrecipes.Networking.RecipeSearchResponse;
 import com.example.foodrecipes.Networking.ServiceGenerator;
+import com.example.foodrecipes.ViewModel.MainActivelyViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +23,27 @@ import retrofit2.Response;
 
 public class MainActivity extends BaseActivity {
 
+    private MainActivelyViewModel mainActivelyViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mainActivelyViewModel = ViewModelProviders.of(this).get(MainActivelyViewModel.class);
+        subscribeObservers();
+    }
+
+    // LiveData work with subscribing. This method will subscribe the observers.
+    private void subscribeObservers() {
+        // ViewModel class has methid observe which triggers onChanged method when some
+        // changes happens to LiveData.
+        mainActivelyViewModel.getRecipes().observe(this, new Observer<List<Recipe>>() {
+            @Override
+            public void onChanged(List<Recipe> recipes) {
+
+            }
+        });
     }
 
     // Testing response for RecipeSearch
