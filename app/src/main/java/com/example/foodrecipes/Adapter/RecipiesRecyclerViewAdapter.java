@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.foodrecipes.Listener.OnRecipeClickListener;
 import com.example.foodrecipes.Model.Recipe;
 import com.example.foodrecipes.R;
@@ -38,6 +40,11 @@ public class RecipiesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         ((RecipiesRecyclerViewViewHolder) holder).setPublisher(recipes.get(position).getPublisher());
         String socialRank = String.valueOf(recipes.get(position).getSocial_rank());
         ((RecipiesRecyclerViewViewHolder) holder).setSocialRank(socialRank);
+
+        // For default if something goes wrong or slow connection
+        RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_launcher_background);
+        // Setting Images
+        Glide.with(holder.itemView.getContext()).setDefaultRequestOptions(requestOptions).load(recipes.get(position)).into(((RecipiesRecyclerViewViewHolder) holder).getImageView());
 
     }
 

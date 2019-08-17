@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.foodrecipes.Listener.OnRecipeClickListener;
 import com.example.foodrecipes.R;
 
@@ -55,5 +57,13 @@ public class RecipiesRecyclerViewViewHolder extends RecyclerView.ViewHolder impl
 
     public String getSocialRank() {
         return socialRank.getText().toString();
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 }
