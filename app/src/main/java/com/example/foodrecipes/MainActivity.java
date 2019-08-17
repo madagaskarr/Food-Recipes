@@ -48,6 +48,8 @@ public class MainActivity extends BaseActivity implements OnRecipeClickListener 
         searchRecipes("chicken", 1);
     }
 
+
+
     // LiveData work with subscribing. This method will subscribe the observers.
     private void subscribeObservers() {
         // ViewModel class has method observe which triggers onChanged method when some
@@ -60,11 +62,6 @@ public class MainActivity extends BaseActivity implements OnRecipeClickListener 
                 }
             }
         });
-    }
-
-    // Testing response for RecipeSearch
-    public void testingRecipeSearch(View view) {
-        searchRecipes("chicken", 1);
     }
 
     // Initial method that triggers all the layers up to the last layer in repository
