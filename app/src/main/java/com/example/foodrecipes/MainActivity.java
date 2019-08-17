@@ -1,35 +1,25 @@
 package com.example.foodrecipes;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
 import com.example.foodrecipes.Adapter.RecipiesRecyclerViewAdapter;
 import com.example.foodrecipes.Listener.OnRecipeClickListener;
 import com.example.foodrecipes.Model.Recipe;
-import com.example.foodrecipes.Networking.RecipeApi;
-import com.example.foodrecipes.Networking.RecipeResponse;
-import com.example.foodrecipes.Networking.RecipeSearchResponse;
-import com.example.foodrecipes.Networking.ServiceGenerator;
 import com.example.foodrecipes.ViewModel.MainActivelyViewModel;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends BaseActivity implements OnRecipeClickListener {
 
     private MainActivelyViewModel mainActivelyViewModel;
     private RecyclerView recipiesRecyclerView;
     private RecipiesRecyclerViewAdapter recipiesRecyclerViewAdapter;
+    private SearchView searchView;
 
 
     @Override
@@ -45,7 +35,22 @@ public class MainActivity extends BaseActivity implements OnRecipeClickListener 
         recipiesRecyclerViewAdapter = new RecipiesRecyclerViewAdapter(this);
         recipiesRecyclerView.setAdapter(recipiesRecyclerViewAdapter);
 
-        searchRecipes("chicken", 1);
+        searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                mainActivelyViewModel.searchRecipes(s, 1);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+
+
     }
 
 
@@ -63,13 +68,6 @@ public class MainActivity extends BaseActivity implements OnRecipeClickListener 
             }
         });
     }
-
-    // Initial method that triggers all the layers up to the last layer in repository
-    // that is triggering search reqeust from API client and that triggers LiveData
-    private void searchRecipes(String query, int pageNumber) {
-        mainActivelyViewModel.searchRecipes(query, pageNumber);
-    }
-
 
     @Override
     public void onRecipeItemClicked(int position) {
