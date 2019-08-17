@@ -1,5 +1,6 @@
 package com.example.foodrecipes;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -7,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import com.example.foodrecipes.Adapter.RecipiesRecyclerViewAdapter;
 import com.example.foodrecipes.Listener.OnRecipeClickListener;
 import com.example.foodrecipes.Model.Recipe;
@@ -14,12 +18,13 @@ import com.example.foodrecipes.ViewModel.MainActivelyViewModel;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity implements OnRecipeClickListener {
+public class MainActivity extends AppCompatActivity implements OnRecipeClickListener {
 
     private MainActivelyViewModel mainActivelyViewModel;
     private RecyclerView recipiesRecyclerView;
     private RecipiesRecyclerViewAdapter recipiesRecyclerViewAdapter;
     private SearchView searchView;
+    private ProgressBar mainProgressBar;
 
 
     @Override
@@ -27,6 +32,7 @@ public class MainActivity extends BaseActivity implements OnRecipeClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mainProgressBar = findViewById(R.id.main_progress_bar);
         mainActivelyViewModel = ViewModelProviders.of(this).get(MainActivelyViewModel.class);
         subscribeObservers();
 
@@ -39,6 +45,7 @@ public class MainActivity extends BaseActivity implements OnRecipeClickListener 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                mainProgressBar.setVisibility(View.VISIBLE);
                 mainActivelyViewModel.searchRecipes(s, 1);
                 return false;
             }
@@ -64,6 +71,7 @@ public class MainActivity extends BaseActivity implements OnRecipeClickListener 
             public void onChanged(List<Recipe> recipes) {
                 if (recipes != null) {
                     recipiesRecyclerViewAdapter.setRecipes(recipes);
+                    mainProgressBar.setVisibility(View.GONE);
                 }
             }
         });

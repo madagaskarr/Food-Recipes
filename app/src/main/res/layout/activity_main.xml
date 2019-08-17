@@ -36,4 +36,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+    <ProgressBar
+        android:id="@+id/main_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:paddingBottom="50dp"
+        android:paddingTop="50dp"
+        android:layout_gravity="center"
+        android:background="#03A9F4"
+        android:visibility="gone"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
