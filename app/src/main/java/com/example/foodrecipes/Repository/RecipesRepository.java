@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.foodrecipes.Model.Recipe;
+import com.example.foodrecipes.Networking.RecipeApiClient;
 
 import java.util.List;
 
@@ -12,9 +13,8 @@ import java.util.List;
 // this class singleton.
 public class RecipesRepository {
 
-
-    // Each ViewModel has LiveData object.
-    private MutableLiveData<List<Recipe>> recipes;
+    // This is a reference to APi Client to get data.
+    RecipeApiClient recipeApiClient;
 
     // Implementing singleton pattern.
     private static RecipesRepository instance;
@@ -27,16 +27,16 @@ public class RecipesRepository {
         return instance;
     }
 
-    // Public constructor, for instantiating LiveData when this class
-    // is being instantiated first time. And it is a singleton that is why
-    // it we always one object at a time and one LiveData.
+    // When instantiating the class we getting reference to Api Client.
     public RecipesRepository() {
-        recipes = new MutableLiveData<>();
+        recipeApiClient = RecipeApiClient.getInstance();
     }
 
     // Method for getting all recipes.
     public LiveData<List<Recipe>> getRecipes() {
-        return recipes;
+        return recipeApiClient.getRecipes();
     }
+
+
 
 }
