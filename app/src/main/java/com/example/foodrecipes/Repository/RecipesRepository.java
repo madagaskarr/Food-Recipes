@@ -37,6 +37,17 @@ public class RecipesRepository {
         return recipeApiClient.getRecipes();
     }
 
+    // Search recipes last chain which will call RecipeAPiClient method
+    public void searchRecipes(String query, int pageNumber) {
+
+        // Api specific checking
+        if (pageNumber == 0) {
+            pageNumber = 1;
+        }
+        // Calling search method.
+        recipeApiClient.searchRecipesApi(query, pageNumber);
+    }
+
 
 
 }

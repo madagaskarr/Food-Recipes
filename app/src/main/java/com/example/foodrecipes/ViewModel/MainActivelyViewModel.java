@@ -25,4 +25,9 @@ public class MainActivelyViewModel extends ViewModel {
     public LiveData<List<Recipe>> getRecipes() {
         return recipesRepository.getRecipes();
     }
+
+    // Second search method in a chain.
+    public void searchRecipes(String query, int pageNumber) {
+        recipesRepository.searchRecipes(query, pageNumber);
+    }
 }
