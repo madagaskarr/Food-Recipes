@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                mainActivelyViewModel.setPerformingQuery(true);
                 mainProgressBar.setVisibility(View.VISIBLE);
                 mainActivelyViewModel.searchRecipes(s, 1);
                 return false;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
                 if (recipes != null) {
                     recipiesRecyclerViewAdapter.setRecipes(recipes);
                     mainProgressBar.setVisibility(View.GONE);
+                    mainActivelyViewModel.setPerformingQuery(false);
                 }
             }
         });
@@ -85,5 +87,13 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
     @Override
     public void onCategoryClicked(String category) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mainActivelyViewModel.onBackPressed()) {
+            searchView.clearFocus();
+        }
+        super.onBackPressed();
     }
 }

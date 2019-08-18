@@ -66,6 +66,12 @@ public class RecipeApiClient {
         }, Constants.NETWORK_TIMEOUT, TimeUnit.MILLISECONDS);
     }
 
+    public void cancelRequest() {
+        if (retrieveRecipesRunnable != null) {
+            retrieveRecipesRunnable.cancelRequest();
+        }
+    }
+
     // This is our runnable for searching recipes. It it implementing runnable interface.
     // It has overriten run method where all the logic should appear.
     private class RetrieveRecipesRunnable implements Runnable {

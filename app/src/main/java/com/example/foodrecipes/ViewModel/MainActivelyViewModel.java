@@ -12,12 +12,15 @@ import java.util.List;
 // AndroidViewModel class if we need Application context.
 public class MainActivelyViewModel extends ViewModel {
 
+    private boolean isPerformingQuery;
+
     // ViewModel get all its data from Repository layer, which is singleton class.
     private RecipesRepository recipesRepository;
 
 
     // Constructor
     public MainActivelyViewModel() {
+        isPerformingQuery = false;
         recipesRepository = RecipesRepository.getInstance();
     }
 
@@ -29,5 +32,22 @@ public class MainActivelyViewModel extends ViewModel {
     // Second search method in a chain.
     public void searchRecipes(String query, int pageNumber) {
         recipesRepository.searchRecipes(query, pageNumber);
+        isPerformingQuery = true;
+    }
+
+    public boolean isPerformingQuery() {
+        return isPerformingQuery;
+    }
+
+    public void setPerformingQuery(boolean performingQuery) {
+        isPerformingQuery = performingQuery;
+    }
+
+    public boolean onBackPressed() {
+        if (isPerformingQuery) {
+            recipesRepository.cancelRequest();
+            isPerformingQuery = false;
+        }
+        return true;
     }
 }
