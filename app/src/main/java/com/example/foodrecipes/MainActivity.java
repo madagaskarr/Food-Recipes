@@ -15,12 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.foodrecipes.Adapter.RecipiesRecyclerViewAdapter;
 import com.example.foodrecipes.Listener.OnRecipeClickListener;
 import com.example.foodrecipes.Model.Recipe;
 import com.example.foodrecipes.ViewModel.MainActivelyViewModel;
 import java.util.List;
+
+import javax.xml.datatype.Duration;
 
 
 public class MainActivity extends AppCompatActivity implements OnRecipeClickListener {
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
                 if (!recyclerView.canScrollVertically(0)) {
                     Log.d("TIGRAN", "onScrollStateChanged: get to the end!");
                     mainActivelyViewModel.requestNextPage(searchView.getQuery().toString());
+                    Toast.makeText(getApplicationContext(),"New query started.",Toast.LENGTH_LONG).show();
                 }
 
                 super.onScrollStateChanged(recyclerView, newState);
@@ -119,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
 
         if (item.getItemId() == R.id.action_categories) {
             mainActivelyViewModel.onCancelMenuItemClicked();
+            Toast.makeText(getApplicationContext(),"Request has been cancelled.",Toast.LENGTH_LONG).show();
+
         }
 
         return super.onOptionsItemSelected(item);
