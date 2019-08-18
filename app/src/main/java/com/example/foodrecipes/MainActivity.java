@@ -1,13 +1,17 @@
 package com.example.foodrecipes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
         mainProgressBar = findViewById(R.id.main_progress_bar);
         mainActivelyViewModel = ViewModelProviders.of(this).get(MainActivelyViewModel.class);
         subscribeObservers();
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         recipiesRecyclerView = findViewById(R.id.recipies_recycler_view);
         recipiesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -90,10 +95,18 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
     }
 
     @Override
-    public void onBackPressed() {
-        if (mainActivelyViewModel.onBackPressed()) {
-            searchView.clearFocus();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.recipe_search_meanu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.action_categories) {
+            mainActivelyViewModel.onCancelMenuItemClicked();
         }
-        super.onBackPressed();
+
+        return super.onOptionsItemSelected(item);
     }
 }

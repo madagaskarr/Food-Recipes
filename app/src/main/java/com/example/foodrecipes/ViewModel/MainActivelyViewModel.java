@@ -43,10 +43,10 @@ public class MainActivelyViewModel extends ViewModel {
         isPerformingQuery = performingQuery;
     }
 
-    public boolean onBackPressed() {
+    public boolean onCancelMenuItemClicked() {
         if (isPerformingQuery) {
-            recipesRepository.cancelRequest();
             isPerformingQuery = false;
+            recipesRepository.cancelRequest();
         }
         return true;
     }
