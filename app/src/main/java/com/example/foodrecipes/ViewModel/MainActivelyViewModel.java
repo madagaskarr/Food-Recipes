@@ -50,4 +50,8 @@ public class MainActivelyViewModel extends ViewModel {
         }
         return true;
     }
+
+    public void requestNextPage(String query) {
+        recipesRepository.requestNextPage(query);
+    }
 }

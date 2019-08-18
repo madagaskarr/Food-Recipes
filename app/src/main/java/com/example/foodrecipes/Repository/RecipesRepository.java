@@ -1,5 +1,7 @@
 package com.example.foodrecipes.Repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -12,6 +14,8 @@ import java.util.List;
 // transferred to ViewModel layer. That is why it is a good idea to make
 // this class singleton.
 public class RecipesRepository {
+
+    private int initialPageNumber = 1;
 
     // This is a reference to APi Client to get data.
     RecipeApiClient recipeApiClient;
@@ -44,12 +48,18 @@ public class RecipesRepository {
         if (pageNumber == 0) {
             pageNumber = 1;
         }
+
         // Calling search method.
         recipeApiClient.searchRecipesApi(query, pageNumber);
     }
 
     public void cancelRequest() {
         recipeApiClient.cancelRequest();
+    }
+
+    public void requestNextPage(String query) {
+        initialPageNumber++;
+        searchRecipes(query, initialPageNumber);
     }
 
 

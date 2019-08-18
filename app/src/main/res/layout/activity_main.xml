@@ -43,7 +43,6 @@
         android:paddingBottom="50dp"
         android:paddingTop="50dp"
         android:layout_gravity="center"
-        android:background="#03A9F4"
         android:visibility="gone"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"

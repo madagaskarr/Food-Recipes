@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,6 +60,19 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
             @Override
             public boolean onQueryTextChange(String s) {
                 return false;
+            }
+        });
+
+        recipiesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+
+                if (!recyclerView.canScrollVertically(0)) {
+                    Log.d("TIGRAN", "onScrollStateChanged: get to the end!");
+                    mainActivelyViewModel.requestNextPage(searchView.getQuery().toString());
+                }
+
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
 
